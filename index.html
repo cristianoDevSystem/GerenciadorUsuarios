@@ -67,7 +67,7 @@
 
                   <!-- O hidden-xs esconter o nome do usuário em dispotivos pequenos para que 
                      só apareça a imagem -->
-                  <span class="hidden-xs">Fulano Junior</span>
+                  <span class="hidden-xs">Cristiano Developmet Web Jr</span>
                 </a>
 
                 <ul class="dropdown-menu">
@@ -290,33 +290,34 @@
                 <!-- Formulário do Nome do Usuário -->
                 <form role="form" id="form-user-create">
                   <div class="box-body">
+                    <!-- Radio Box de Genero -->
                     <div class="form-group">
+                      
+                      <!-- Genero Masculino -->
                       <label for="exampleInputName">Nome</label>
                       <input type="text" class="form-control" id="exampleInputName" placeholder="Digite o nome do usuário" name="name">
                     </div>
-                    <!-- Radio Box de Genero -->
                     <div class="form-group">
-                      <!-- Genero Masculino -->
+
+                      <!-- Genero Feminino -->
                       <label>Gênero</label>
                       <div class="radio">
                         <label for="exampleInputGenderM">
-                          <input type="radio" id="exempleInputGenderM" name="gender" checked>Masculino
-                        </label>
-                      </div>                      
+                          <input type="radio" id="exampleInputGenderM" name="gender" checked>
+                          Masculino</label>
+                      </div>
+                      <div class="radio">
+                        <label for="exampleInputGenderF">
+                          <input type="radio" id="exampleInputGenderF" name="gender">
+                          Feminino</label>
+                      </div>
                     </div>
-                    <!-- Genero Feminino -->
-                    <div class="radio">
-                      <label for="exampleInputGenderF">
-                        <input type="radio" name="gender" id="exampleInputGenderF">Feminino
-                      </label>
-                    </div>
-                  </div>
 
-                  <!-- Formulario Data de Nascimento -->
-                  <div class="fomr-group">
-                    <label for="exampleInputBirth">Nascimento</label>
-                    <input type="date" class="form-control" name="birth" id="exampleInputBirth">
-                  </div>
+                    <!-- Formulario Data de Nascimento -->
+                    <div class="form-group">
+                      <label for="exampleInputBirth">Nascimento</label>
+                      <input type="date" class="form-control" id="exampleInputBirth" name="birth">
+                    </div>                  
 
                   <!-- Formulário de Países -->
                   <div class="form-group">
@@ -566,7 +567,38 @@
                     <option value="Zimbabwe">Zimbabwe</option>
                     </select>
                   </div>
+
+                  <!-- Campo Email -->
+                  <div class="form-group">
+                    <label for="exampleInputEmail">E-mail</label>
+                    <input type="email" class="form-control" id="exempleInputEmail" placeholder="Digite o e-mail" name="email">
+                  </div>
+
+                  <!-- Campo Senha -->
+                  <div class="form-group">
+                    <label for="exampleInputPassword">Senha</label>
+                    <input type="password" class="form-control" id="exampleInputPassword" placeholder="Crie uma senha" name="passoword">
+                  </div>
+
+                  <!-- Campo Foto -->
+                  <div class="form-group">
+                    <label for="exampleInputField">Foto</label>
+                    <input type="file" id="exampleInputFile" name="photo">
+                  </div>
+
+                  <!-- Formulario Checkbox -->
+                  <div class="checkbox">
+                    <label for="checkbox">
+                      <input type="checkbox" name="admin" id="exampleInputAdmin"> Administrador
+                    </label>
+                  </div>
+                  <!-- / Box Body -->
+                  <div class="box-footer">
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                  </div>
+
                 </form>
+                <!-- / Form -->
               </div>
 
             </div>
