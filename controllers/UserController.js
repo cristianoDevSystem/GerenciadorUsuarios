@@ -3,7 +3,7 @@ class UserController {
     constructor(formId, tableId) {
 
         this.formElement = document.getElementById(formId);
-        this.tableElement = document.getElementById(tableIdId);
+        this.tableElement = document.getElementById(tableId);
 
         this.onSubmit();
 
@@ -18,8 +18,6 @@ class UserController {
             event.preventDefault();
 
             // Pegando o metodo getValues
-            this.getValues();
-
             this.addLine(this.getValues());
 
 
@@ -33,7 +31,8 @@ class UserController {
         let user = {};
 
         // Pecorrendo os filhos do formulario
-        this.formElement.elements.forEach(function (field, index) {
+        // Usando os [] para transforma a função do objeto em um array
+        [...this.formElement.elements].forEach(function (field, index) {
 
             if (field.name == "gender") {
 
@@ -66,9 +65,8 @@ class UserController {
     // Criando uma tabela nova através do JavaScript
     addLine(dataUser) {
 
-        this.tableId.innerHTML =
-            `
-                <tr>
+        this.tableElement.innerHTML = ` 
+            <tr>
                     <td><img src="dist/img/user2-160x160.jpg" alt="User Image" class="img-circle img-sm"></td>
                     <td>${dataUser.name}</td>
                     <td>${dataUser.email}</td>
