@@ -17,13 +17,47 @@ class UserController {
 
             event.preventDefault();
 
-            // Pegando o metodo getValues
-            this.addLine(this.getValues());
+            // Usando a API do FileReader para sobrescrever o arquivo
+            let values = this.getValues();
+            
+            this.getPhoto((content)=>{
 
+                values.photo = content;
+
+                // Pegando o metodo getValues
+                this.addLine(values);
+            });        
 
         });
 
     } // Fechando o metodo onSubmit
+
+    // Metodo para ler o arquivo e sobrescrever o getValues
+    getPhoto(callback) {
+        
+        let fileReader = new FileReader();
+
+        let elements = [...this.formElement.elements].filter(item=>{
+
+            if (item.name === 'photo') {
+                return item;
+            }
+        });
+
+        // Variavel para carregamento do elemento
+        let file = elements[0].files[0];
+
+        // Executando o carregamento do elemento
+        fileReader.onload = ()=>{
+
+            callback(fileReader.result);
+
+
+        };
+
+        // Enviando o elemento carregando apos ser finalizado para o carregamento
+        fileReader.readAsDataURL(file);
+    }
 
     // Metodo para percorrer o formumario e criar um JSon para ele
     getValues() {
@@ -67,7 +101,7 @@ class UserController {
 
         this.tableElement.innerHTML = ` 
             <tr>
-                    <td><img src="dist/img/user2-160x160.jpg" alt="User Image" class="img-circle img-sm"></td>
+                    <td><img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm"></td>
                     <td>${dataUser.name}</td>
                     <td>${dataUser.email}</td>
                     <td>${dataUser.admin}</td>
