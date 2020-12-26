@@ -19,45 +19,66 @@ class UserController {
 
             // Usando a API do FileReader para sobrescrever o arquivo
             let values = this.getValues();
-            
-            this.getPhoto((content)=>{
 
-                values.photo = content;
+            this.getPhoto().then(
+                // Caso ter certo
+                (content)=> {
 
-                // Pegando o metodo getValues
-                this.addLine(values);
-            });        
+                    values.photo = content;
+
+                    // Pegando o metodo getValues
+                    this.addLine(values);
+
+
+                },
+                // Caso ter errado
+                (e) => {
+                    console.error(e);
+
+                }
+            );
 
         });
 
     } // Fechando o metodo onSubmit
 
     // Metodo para ler o arquivo e sobrescrever o getValues
-    getPhoto(callback) {
-        
-        let fileReader = new FileReader();
+    getPhoto() {
 
-        let elements = [...this.formElement.elements].filter(item=>{
+        return new Promise((resolve, reject)=> {
 
-            if (item.name === 'photo') {
-                return item;
+            let fileReader = new FileReader();
+
+            let elements = [...this.formElement.elements].filter(item => {
+
+                if (item.name === 'photo') {
+                    return item;
+                }
+            });
+
+            // Variavel para carregamento do elemento
+            let file = elements[0].files[0];
+
+            // Executando o carregamento do elemento
+            fileReader.onload = () => {
+
+                resolve(fileReader.result);
+
+
+            };
+
+            fileReader.onerror = (e) => {
+
+                reject(e);
             }
+
+            // Enviando o elemento carregando apos ser finalizado para o carregamento
+            fileReader.readAsDataURL(file);
+
         });
 
-        // Variavel para carregamento do elemento
-        let file = elements[0].files[0];
 
-        // Executando o carregamento do elemento
-        fileReader.onload = ()=>{
-
-            callback(fileReader.result);
-
-
-        };
-
-        // Enviando o elemento carregando apos ser finalizado para o carregamento
-        fileReader.readAsDataURL(file);
-    }
+    } // Fechando o onSubmit
 
     // Metodo para percorrer o formumario e criar um JSon para ele
     getValues() {
