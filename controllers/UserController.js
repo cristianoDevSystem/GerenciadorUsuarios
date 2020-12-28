@@ -96,10 +96,19 @@ class UserController {
     getValues() {
 
         let user = {};
+        let isValid = true;
 
         // Pecorrendo os filhos do formulario
         // Usando os [] para transforma a função do objeto em um array
         [...this.formElement.elements].forEach(function (field, index) {
+
+            // Valitando os campos que necessitam ser preenchidos
+            if (['name', 'email', 'password'].indexOf(field.name) > - 1 && !field.value) {
+
+                field.parentElement.classList.add('has-error');
+                isValid = false;
+
+            }
 
             if (field.name == "gender") {
 
@@ -120,6 +129,11 @@ class UserController {
             }
 
         }); // Fechando o forEach
+
+        // Verificando se o formulário é valido
+        if (!isValid) {
+            return false;
+        }
 
         return new User(
             user.name,
