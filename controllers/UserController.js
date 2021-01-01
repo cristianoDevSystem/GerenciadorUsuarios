@@ -164,10 +164,21 @@ class UserController {
             <td>${(dataUser.admin) ? 'Sim' : 'Não'}</td>
             <td>${Utils.dateFormat(dataUser.register)}</td>
             <td>
-                <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
+                <button type="button" class="btn btn-primary btn-edit btn-xs btn-flat">Editar</button>
                 <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
             </td>  
         `;
+
+        // Botão editar
+       tr.querySelector(".btn-edit").addEventListener("click", e=>{
+
+            console.log(JSON.parse(tr.dataset.user));
+            
+            // Ocultando o formulário de criação e exibindo o de edição
+            document.querySelector("#box-user-create").style.display = "none";
+            document.querySelector("#box-user-update").style.display = "block";
+
+        });
 
         this.tableElement.appendChild(tr);
 
