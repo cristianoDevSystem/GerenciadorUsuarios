@@ -1,6 +1,6 @@
 class UserController {
 
-    constructor (formId, tableId){
+    constructor(formId, tableId) {
 
         this.formEl = document.getElementById(formId);
         this.tableEl = document.getElementById(tableId);
@@ -10,7 +10,7 @@ class UserController {
 
     }
 
-    onEdit(){
+    onEdit() {
 
         document.querySelector("#box-user-update .btn-cancel").addEventListener("click", e => {
 
@@ -20,7 +20,7 @@ class UserController {
 
     }
 
-    onSubmit(){
+    onSubmit() {
 
         this.formEl.addEventListener("submit", event => {
 
@@ -45,17 +45,17 @@ class UserController {
 
                     btn.disabled = false;
 
-                }, 
+                },
                 (e) => {
                     console.error(e)
                 }
             );
-        
+
         });
 
     }
 
-    getPhoto(){
+    getPhoto() {
 
         return new Promise((resolve, reject) => {
 
@@ -83,7 +83,7 @@ class UserController {
 
             };
 
-            if(file) {
+            if (file) {
                 fileReader.readAsDataURL(file);
             } else {
                 resolve('dist/img/boxed-bg.jpg');
@@ -93,12 +93,12 @@ class UserController {
 
     }
 
-    getValues(){
+    getValues() {
 
         let user = {};
         let isValid = true;
 
-        [...this.formEl.elements].forEach(function(field, index){
+        [...this.formEl.elements].forEach(function (field, index) {
 
             if (['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value) {
 
@@ -108,40 +108,40 @@ class UserController {
             }
 
             if (field.name === "gender") {
-    
+
                 if (field.checked) {
                     user[field.name] = field.value
                 }
-    
-            } else if(field.name == "admin") {
+
+            } else if (field.name == "admin") {
 
                 user[field.name] = field.checked;
 
             } else {
-    
+
                 user[field.name] = field.value
-    
+
             }
-    
+
         });
 
         if (!isValid) {
             return false;
         }
-    
+
         return new User(
-            user.name, 
-            user.gender, 
-            user.birth, 
-            user.country, 
-            user.email, 
-            user.password, 
-            user.photo, 
+            user.name,
+            user.gender,
+            user.birth,
+            user.country,
+            user.email,
+            user.password,
+            user.photo,
             user.admin
         );
 
     }
-    
+
     addLine(dataUser) {
 
         let tr = document.createElement('tr');
@@ -170,20 +170,31 @@ class UserController {
             // Pecorrendo cada um dos objetos
             for (let name in json) {
 
-             let field = form.querySelector("[name=" + name.replace("_", "") + "]");
+                let field = form.querySelector("[name=" + name.replace("_", "") + "]");
 
-             
-             if (field) {
-                
-                switch (field.type) {
-                    case 'file':
+
+                if (field) {
+
+                    switch (field.type) {
+                        case 'file':
                         continue;
                         break;
-                    case 'radio'
-                }
 
-                field.value = json[name];
-             }
+                        case 'radio':
+                            field = form.querySelector("[name=" + name.replace("_", "") +"][value=" + json[name] + "]");
+                            field.checked = true;
+                        break;
+                        
+                        case 'checkbox':
+                            field.checked = json[name];
+                        break;
+
+                        default:
+                            field.value = json[name];
+
+                    }
+
+                }
 
             }
 
@@ -197,21 +208,21 @@ class UserController {
 
     }
 
-    showPanelCreate(){
+    showPanelCreate() {
 
         document.querySelector("#box-user-create").style.display = "block";
         document.querySelector("#box-user-update").style.display = "none";
 
     }
 
-    showPanelUpdate(){
+    showPanelUpdate() {
 
         document.querySelector("#box-user-create").style.display = "none";
         document.querySelector("#box-user-update").style.display = "block";
 
     }
 
-    updateCount(){
+    updateCount() {
 
         let numberUsers = 0;
         let numberAdmin = 0;
