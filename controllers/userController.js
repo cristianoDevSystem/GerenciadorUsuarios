@@ -1,19 +1,17 @@
-// const { event } = require("jquery");
-
 class UserController {
 
     constructor (formIdCreate, formIdUpdate, tableId){
 
         this.formEl = document.getElementById(formIdCreate);
         this.formUpdateEl = document.getElementById(formIdUpdate);
-        this.tableEl = document.getElementById(tableId)
+        this.tableEl = document.getElementById(tableId);
 
         this.onSubmit();
         this.onEdit();
 
     }
 
-    onEdit() {
+    onEdit(){
 
         document.querySelector("#box-user-update .btn-cancel").addEventListener("click", e => {
 
@@ -25,7 +23,7 @@ class UserController {
 
             event.preventDefault();
 
-            let btn = this.formUpdateEl.querySelector("[type=submit]");
+            let btn = this.formUpdateEl.querySelector("[type=submit]")
 
             btn.disabled = true;
 
@@ -38,28 +36,28 @@ class UserController {
             tr.dataset.user = JSON.stringify(values);
 
             tr.innerHTML = `
-            <tr>
-                <td><img src=${values.photo} class="img-circle img-sm"></td>
-                <td>${values.name}</td>
-                <td>${values.email}</td>
-                <td>${(values.admin) ? 'Sim' : 'Não'}</td>
-                <td>${Utils.dateFormat(values.register)}</td>
-                <td>
-                    <button type="button" class="btn btn-primary btn-edit btn-xs btn-flat">Editar</button>
-                    <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
-                </td>
-            </tr>
-        `;
-        
-        this.addEventsTr(tr);
+                <tr>
+                    <td><img src=${values.photo} class="img-circle img-sm"></td>
+                    <td>${values.name}</td>
+                    <td>${values.email}</td>
+                    <td>${(values.admin) ? 'Sim' : 'Não'}</td>
+                    <td>${Utils.dateFormat(values.register)}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-edit btn-xs btn-flat">Editar</button>
+                        <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
+                    </td>
+                </tr>
+            `;
 
-        this.updateCount();
+            this.addEventsTr(tr);
+
+            this.updateCount();
 
         });
 
     }
 
-    onSubmit() {
+    onSubmit(){
 
         this.formEl.addEventListener("submit", event => {
 
@@ -84,17 +82,17 @@ class UserController {
 
                     btn.disabled = false;
 
-                },
+                }, 
                 (e) => {
                     console.error(e)
                 }
             );
-
+        
         });
 
     }
 
-    getPhoto() {
+    getPhoto(){
 
         return new Promise((resolve, reject) => {
 
@@ -122,7 +120,7 @@ class UserController {
 
             };
 
-            if (file) {
+            if(file) {
                 fileReader.readAsDataURL(file);
             } else {
                 resolve('dist/img/boxed-bg.jpg');
@@ -132,12 +130,12 @@ class UserController {
 
     }
 
-    getValues(formEl) {
+    getValues(formEl){
 
         let user = {};
         let isValid = true;
 
-        [...formEl.elements].forEach(function (field, index) {
+        [...formEl.elements].forEach(function(field, index){
 
             if (['name', 'email', 'password'].indexOf(field.name) > -1 && !field.value) {
 
@@ -147,40 +145,40 @@ class UserController {
             }
 
             if (field.name === "gender") {
-
+    
                 if (field.checked) {
                     user[field.name] = field.value
                 }
-
-            } else if (field.name == "admin") {
+    
+            } else if(field.name == "admin") {
 
                 user[field.name] = field.checked;
 
             } else {
-
+    
                 user[field.name] = field.value
-
+    
             }
-
+    
         });
 
         if (!isValid) {
             return false;
         }
-
+    
         return new User(
-            user.name,
-            user.gender,
-            user.birth,
-            user.country,
-            user.email,
-            user.password,
-            user.photo,
+            user.name, 
+            user.gender, 
+            user.birth, 
+            user.country, 
+            user.email, 
+            user.password, 
+            user.photo, 
             user.admin
         );
 
     }
-
+    
     addLine(dataUser) {
 
         let tr = document.createElement('tr');
@@ -200,8 +198,8 @@ class UserController {
                 </td>
             </tr>
         `;
-       
-        this.addEventsTr(tr)
+
+        this.addEventsTr(tr);
 
         this.tableEl.appendChild(tr);
 
@@ -209,7 +207,6 @@ class UserController {
 
     }
 
-     // Metodo do click
     addEventsTr(tr) {
 
         tr.querySelector(".btn-edit").addEventListener("click", e => {
@@ -217,27 +214,24 @@ class UserController {
             let json = JSON.parse(tr.dataset.user);
             let form = document.querySelector("#form-user-update");
 
-            // Criando um indice na memoria do form
             form.dataset.trIndex = tr.sectionRowIndex;
 
-            // Pecorrendo cada um dos objetos
             for (let name in json) {
 
                 let field = form.querySelector("[name=" + name.replace("_", "") + "]");
-
 
                 if (field) {
 
                     switch (field.type) {
                         case 'file':
-                        continue;
-                        break;
-
+                            continue;
+                            break;
+                            
                         case 'radio':
-                            field = form.querySelector("[name=" + name.replace("_", "") +"][value=" + json[name] + "]");
+                            field = form.querySelector("[name=" + name.replace("_", "") + "][value=" + json[name] + "]");
                             field.checked = true;
                         break;
-                        
+
                         case 'checkbox':
                             field.checked = json[name];
                         break;
@@ -247,30 +241,33 @@ class UserController {
 
                     }
 
+                    field.value = json[name];
                 }
 
-            }
 
+            }
+            
             this.showPanelUpdate();
 
         });
+
     }
 
-    showPanelCreate() {
+    showPanelCreate(){
 
         document.querySelector("#box-user-create").style.display = "block";
         document.querySelector("#box-user-update").style.display = "none";
 
     }
 
-    showPanelUpdate() {
+    showPanelUpdate(){
 
         document.querySelector("#box-user-create").style.display = "none";
         document.querySelector("#box-user-update").style.display = "block";
 
     }
 
-    updateCount() {
+    updateCount(){
 
         let numberUsers = 0;
         let numberAdmin = 0;
