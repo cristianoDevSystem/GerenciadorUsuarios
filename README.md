@@ -9,4 +9,4 @@ Através do curso da Udemy da HCode.
 Parte do HTML templete pronto, faltando finalizar a programação do JavaScript para implemtentar as funcionalidades.
 
 🚀 ## Navegar
-Para pode testa e visualizar a aplicação, pode-se feita através do endereço do site <a href="https://cristianodasilvaferreira.github.io/GerenciadorUsuarios/" target="_blanck">Gerenciador de usuários</a>, sua visita será muito importante!!
+Para pode testa e visualizar a aplicação, pode-se feita através do endereço do site <a href="https://cristianodasilvaferreira.github.io/GerenciadorUsuarios/" target="_blank">Gerenciador de usuários</a>, sua visita será muito importante!!
