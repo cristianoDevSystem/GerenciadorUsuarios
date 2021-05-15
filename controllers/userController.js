@@ -212,13 +212,12 @@ class UserController {
         tr.querySelector(".btn-edit").addEventListener("click", e => {
 
             let json = JSON.parse(tr.dataset.user);
-            let form = document.querySelector("#form-user-update");
 
-            form.dataset.trIndex = tr.sectionRowIndex;
+            this.formUpdateEl.dataset.trIndex = tr.sectionRowIndex;
 
             for (let name in json) {
 
-                let field = form.querySelector("[name=" + name.replace("_", "") + "]");
+                let field = this.formUpdateEl.querySelector("[name=" + name.replace("_", "") + "]");
 
                 if (field) {
 
@@ -228,7 +227,7 @@ class UserController {
                             break;
                             
                         case 'radio':
-                            field = form.querySelector("[name=" + name.replace("_", "") + "][value=" + json[name] + "]");
+                            field = this.formUpdateEl.querySelector("[name=" + name.replace("_", "") + "][value=" + json[name] + "]");
                             field.checked = true;
                         break;
 
@@ -247,6 +246,8 @@ class UserController {
 
             }
             
+            this.formUpdateEl.querySelector(".photo").src = json._photo;
+
             this.showPanelUpdate();
 
         });
